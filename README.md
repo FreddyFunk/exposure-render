@@ -3,21 +3,30 @@
 This is a build of exposure-render using Visual Studio 2015 and VTK v 7.1.1 and Qt v 5.8.0 on Windows 8.1 machine. This port has been developed by Dr. Muhammad Mobeen Movania for research and educational purposes only. We are grateful to Thomas Kroes who is the author of the original exposure-render framework.
 
 # Setup
-Download and install CUDA v 8.0 Toolkit using the installer provided by NVIDIA. Next, download the three required libraries i.e. VTK 7.1.1 (http://www.vtk.org/files/release/7.1/VTK-7.1.1.zip), QT 5.8.0 (https://download.qt.io/official_releases/qt/5.8/5.8.0/) and freeglut 3.0.0 (https://sourceforge.net/projects/freeglut/files/latest/download). Please ensure that the correct files are downloaded according to your machine. Extract the files to your hard disk. On Windows, there are offline installers available. Please ensure that you download and install the correct installer based on your platform and VisualStudio version. Use CMake to build VTK. Please ensure that Qt build support is enabled by setting the appropriate flags in CMake settings. After CMake has generated your project solution files, open visual studio and then build VTK7. Build both Debug and Release builds.
-Create 4 environment variables and set them as follows
 
-VTK7_ROOT = <Path to VTK 7.1.1 root folder>
-VTK7_BUILD_ROOT = <Path to VTK 7.1.1 build folder>
-QT5_ROOT = <Path to the 5.8 sub-folder in the Qt 5.8.0 root folder>
-FREEGLUT3_BUILD_ROOT = <Path to freeglut3 build sub-folder in the freeglut3 root folder>
+First install CUDA v 8.0 toolkit from NVIDIA. Next download VTK v 7.1.1 from (http://www.vtk.org/files/release/7.1/VTK-7.1.1.zip), Qt 5.8.0 from (https://download.qt.io/official_releases/qt/5.8/5.8.0/) and freeglut v3.0.0 from (https://sourceforge.net/projects/freeglut/files/latest/download).
+Ensure that you have extracted the files at a location on your harddisk. Use CMake to build VTK 7.1.1. Ensure that QT GUI build support is enabled in VTK by setting the appropriate flags in CMake.  Once the CMake project generation is complete, open the VisualStudio 2015 solution and build VTK 7.1.1 for both Debug and Release build.
 
-For example, if vtk 7.1.1 folder is setup on E:\VTK-7.1.1, VTK build folder is setup on E:\VTK-7.1.1\Build_VS2015_x64 folder, QT 5.8 sub-folder is installed in E:\Qt\Qt5.8.0_x64\5.8 and freeglut3 is setup in E:\freeglut3/build folder then the environment variables are setup as follows.
+# Setting up Environment Variables
+Inorder to ensure that the project compiles without errors, you have to setup 4 environment variables as follows:
+
+FREEGLUT3_BUILD_ROOT = <Path to freeglut build directory>
+QT5_ROOT = <Path to 5.8 sub-folder in Qt root directory>
+VTK7_ROOT = <Path to root folder of VTK 7.1.1>
+VTK7_BUILD_ROOT = <Path to build folder of VTK 7.1.1>
+
+So assuming that my freeglut build folder is in E:/freeglut3/build_vs2015_x64, QT5 is installed in E:/Qt/Qt5.8.0_x64 , VTK build folder is E:\VTK-7.1.1\Build_VS2015_x64 and VTK root folder is E:\VTK-7.1.1, then the environment variables will be set as follows:
+
+FREEGLUT3_BUILD_ROOT = E:/freeglut-3.0.0/Build_VS2015_x64
+QT5_ROOT = E:/Qt/Qt5.8.0_x64/5.8
 VTK7_ROOT = E:/VTK-7.1.1
 VTK7_BUILD_ROOT = E:/VTK-7.1.1/Build_VS2015_x64
-QT5_ROOT = E:/Qt/Qt5.8.0_x64/5.8
-FREEGLUT3_BUILD_ROOT = E:/freeglut3/build
 
-Go to the Build_vs2015/ExposureRender sub-directory and open ExposureRender.sln file. This opens VisualStudio 2015. Compile and Build the solution. Last thing that you need to do is to copy all datasets from the Examples folder on the root of the distribution to the Examples sub-folder inside Debug/Release folder which contains the generated .exe file. There is a TODO.txt file containing this information as a reminder for you.
+Once all of the setup is complete, you can open the ExposureRender.sln file in the Build_vs2015 directory. This should compile and build successfully.
+
+# Copying datasets from Examples folder in root of Exposure-Render distribution
+In the root folder of this repository, there is an Examples folder which contains all datasets that are used in the Exposure-Render application. You need to copy these in the appropriate sub-directory (Debug/Release) which contains your compiled .exe file. There is a todo.txt file in the Examples sub-folder to remind you.
+Please ensure that you do this step before you run the demo application otherwise the application will crash.
 
 #############################
 Original Readme Starts Here #
