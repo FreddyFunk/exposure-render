@@ -11,20 +11,26 @@ Ensure that you have extracted the files at a location on your harddisk. Use CMa
 Inorder to ensure that the project compiles without errors, you have to setup 4 environment variables as follows:
 
 FREEGLUT3_BUILD_ROOT = {Path to freeglut build directory}
+
 QT5_ROOT = {Path to 5.8 sub-folder in Qt root directory}
+
 VTK7_ROOT = {Path to root folder of VTK 7.1.1}
+
 VTK7_BUILD_ROOT = {Path to build folder of VTK 7.1.1}
 
 So assuming that my freeglut build folder is in E:/freeglut3/build_vs2015_x64, QT5 is installed in E:/Qt/Qt5.8.0_x64 , VTK build folder is E:\VTK-7.1.1\Build_VS2015_x64 and VTK root folder is E:\VTK-7.1.1, then the environment variables will be set as follows:
 
-##FREEGLUT3_BUILD_ROOT## = E:/freeglut-3.0.0/Build_VS2015_x64
-##QT5_ROOT## = E:/Qt/Qt5.8.0_x64/5.8
-##VTK7_ROOT## = E:/VTK-7.1.1
-##VTK7_BUILD_ROOT## = E:/VTK-7.1.1/Build_VS2015_x64
+FREEGLUT3_BUILD_ROOT = E:/freeglut-3.0.0/Build_VS2015_x64
+
+QT5_ROOT = E:/Qt/Qt5.8.0_x64/5.8
+
+VTK7_ROOT = E:/VTK-7.1.1
+
+VTK7_BUILD_ROOT = E:/VTK-7.1.1/Build_VS2015_x64
 
 Once all of the setup is complete, you can open the ExposureRender.sln file in the Build_vs2015 directory. This should compile and build successfully.
 
-## Copying datasets from Examples folder in root of Exposure-Render distribution
+## Copying datasets from Examples folder at the root of this repository
 In the root folder of this repository, there is an Examples folder which contains all datasets that are used in the Exposure-Render application. You need to copy these in the appropriate sub-directory (Debug/Release) which contains your compiled .exe file. There is a todo.txt file in the Examples sub-folder to remind you.
 Please ensure that you do this step before you run the demo application otherwise the application will crash.
 
