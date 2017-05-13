@@ -30,6 +30,9 @@ VTK7_BUILD_ROOT = E:/VTK-7.1.1/Build_VS2015_x64
 
 Once all of the setup is complete, you can open the ExposureRender.sln file in the Build_vs2015 directory. This should compile and build successfully.
 
+## QT class MOC-ing
+For QT classes containing the QOBJECT macro, MOC-ing is required. To enable this seamlessly, a .bat file GenerateMOC.bat is provided in the Sources sub-folder. After you have modified the QT related classes, call the GenerateMOC.bat file and it will generate the moc*.cpp files* for you which will be added to the solution automatically.
+
 ## Copying datasets from Examples folder at the root of this repository
 In the root folder of this repository, there is an Examples folder which contains all datasets that are used in the Exposure-Render application. You need to copy these in the appropriate sub-directory (Debug/Release) which contains your compiled .exe file. There is a todo.txt file in the Examples sub-folder to remind you.
 Please ensure that you do this step before you run the demo application otherwise the application will crash.
