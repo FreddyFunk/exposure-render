@@ -2,7 +2,7 @@
 
 This is a build of exposure-render using Visual Studio 2015 and VTK v 7.1.1 and Qt v 5.8.0 on Windows 8.1 machine. This port has been developed by Dr. Muhammad Mobeen Movania for research and educational purposes only. We are grateful to Thomas Kroes who is the author of the original exposure-render framework.
 
-## Setup
+## Download the required libraries
 
 First install CUDA v 8.0 toolkit from NVIDIA. Next download VTK v 7.1.1 from (http://www.vtk.org/files/release/7.1/VTK-7.1.1.zip), Qt 5.8.0 from (https://download.qt.io/official_releases/qt/5.8/5.8.0/) and freeglut v3.0.0 from (https://sourceforge.net/projects/freeglut/files/latest/download).
 Ensure that you have extracted the files at a location on your harddisk. Use CMake to build VTK 7.1.1. Ensure that QT GUI build support is enabled in VTK by setting the appropriate flags in CMake.  Once the CMake project generation is complete, open the VisualStudio 2015 solution and build VTK 7.1.1 for both Debug and Release build.
