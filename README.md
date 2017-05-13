@@ -2,9 +2,9 @@
 
 This is a build of exposure-render using Visual Studio 2015 and VTK v 7.1.1 and Qt v 5.8.0 on Windows 8.1 machine. All third party libraries are included in the respository to allow a self contained repository that could be downloaded and run as is without any problems. This port has been developed by Dr. Muhammad Mobeen Movania for research and educational purposes only. We are grateful to Thomas Kroes who is the author of the original exposure-render framework.
 
-###############################
-# Original Readme Starts Here #
-###############################
+#############################
+Original Readme Starts Here #
+#############################
 # Exposure Render
 
 Exposure Render is a CUDA based volume raycaster, enhanced with physically based light transport. More information about the rendering algorithm can be found here:
