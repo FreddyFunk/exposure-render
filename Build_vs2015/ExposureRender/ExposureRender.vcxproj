@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DC63AC74-3AFC-4E17-A236-A182D3358654}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ExposureRender</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 8.0.props" />
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_EXPORTING;QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(VTK7_ROOT)\Common\Core;$(VTK7_ROOT)\Common\DataModel;$(VTK7_ROOT)\Common\ExecutionModel;$(VTK7_ROOT)\Common\Math;$(VTK7_ROOT)\Common\Misc;$(VTK7_ROOT)\Common\Transforms;$(VTK7_ROOT)\Filters\Core;$(VTK7_ROOT)\Filters\Extraction;$(VTK7_ROOT)\Filters\General;$(VTK7_ROOT)\Filters\Sources;$(VTK7_ROOT)\GUISupport\Qt;$(VTK7_ROOT)\Imaging\Core;$(VTK7_ROOT)\Imaging\General;$(VTK7_ROOT)\Imaging\Sources;$(VTK7_ROOT)\Imaging\Statistics;$(VTK7_ROOT)\Infovis\Core;$(VTK7_ROOT)\Interaction\Image;$(VTK7_ROOT)\Interaction\Style;$(VTK7_ROOT)\Interaction\Widgets;$(VTK7_ROOT)\IO\Core;$(VTK7_ROOT)\IO\Image;$(VTK7_ROOT)\IO\Legacy;$(VTK7_ROOT)\Rendering\Core;$(VTK7_ROOT)\Rendering\Annotation;$(VTK7_ROOT)\Rendering\Volume;$(VTK7_ROOT)\Testing\Rendering;$(VTK7_ROOT)\Utilities\KWIML;$(VTK7_ROOT)\Views\Core;$(VTK7_ROOT)\Views\Infovis;$(VTK7_BUILD_ROOT)\Common\Core;$(VTK7_BUILD_ROOT)\Common\DataModel;$(VTK7_BUILD_ROOT)\Common\Misc;$(VTK7_BUILD_ROOT)\Common\ExecutionModel;$(VTK7_BUILD_ROOT)\Filters\Core;$(VTK7_BUILD_ROOT)\Filters\Extraction;$(VTK7_BUILD_ROOT)\Filters\General;$(VTK7_BUILD_ROOT)\Filters\Sources;$(VTK7_BUILD_ROOT)\GUISupport\Qt\;$(VTK7_BUILD_ROOT)\Imaging\Core;$(VTK7_BUILD_ROOT)\Imaging\General;$(VTK7_BUILD_ROOT)\Imaging\Sources;$(VTK7_BUILD_ROOT)\Imaging\Statistics;$(VTK7_BUILD_ROOT)\Infovis\Core;$(VTK7_BUILD_ROOT)\Interaction\Image;$(VTK7_BUILD_ROOT)\Interaction\Style;$(VTK7_BUILD_ROOT)\Interaction\Widgets;$(VTK7_BUILD_ROOT)\IO\Core;$(VTK7_BUILD_ROOT)\IO\Image;$(VTK7_BUILD_ROOT)\IO\Legacy;$(VTK7_BUILD_ROOT)\Rendering\Annotation;$(VTK7_BUILD_ROOT)\Rendering\Context2D;$(VTK7_BUILD_ROOT)\Rendering\Core;$(VTK7_BUILD_ROOT)\Rendering\OpenGL2;$(VTK7_BUILD_ROOT)\Rendering\Volume;$(VTK7_BUILD_ROOT)\Testing\Rendering;$(VTK7_BUILD_ROOT)\Utilities\KWIML;$(VTK7_BUILD_ROOT)\Views\Core;$(VTK7_BUILD_ROOT)\Views\Infovis;$(QT5_ROOT)\msvc2015_64\include;$(QT5_ROOT)\msvc2015_64\include\QtGui;$(QT5_ROOT)\msvc2015_64\include\QtXml;$(QT5_ROOT)\msvc2015_64\include\QtNetwork;$(QT5_ROOT)\msvc2015_64\include\QtCore;$(QT5_ROOT)\Src\qtbase\include\QtWidgets;$(NVCUDASAMPLES8_0_ROOT)\common\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>QVTKWidgetPlugin.lib;Qt5Guid.lib;Qt5Xmld.lib;Qt5Networkd.lib;Qt5Cored.lib;Qt5Sqld.lib;Qt5Widgetsd.lib;vtkRenderingOpenGL2-7.1.lib;vtkCommonMisc-7.1.lib;vtkCommonDataModel-7.1.lib;vtkCommonExecutionModel-7.1.lib;vtkImagingStatistics-7.1.lib;vtkGUISupportQt-7.1.lib;vtkRenderingCore-7.1.lib;vtkIOCore-7.1.lib;vtkIOImage-7.1.lib;vtkCommonCore-7.1.lib;vtkViewsCore-7.1.lib;vtkChartsCore-7.1.lib;vtkInfovisCore-7.1.lib;vtkFiltersHybrid-7.1.lib;vtkverdict-7.1.lib;vtkImagingCore-7.1.lib;vtkImagingGeneral-7.1.lib;vtkInteractionImage-7.1.lib;vtkInteractionStyle-7.1.lib;wbemuuid.lib;vtkFiltersCore-7.1.lib;vtkDICOMParser-7.1.lib;vtkNetCDF_cxx-7.1.lib;vtkmetaio-7.1.lib;comctl32.lib;wsock32.lib;vtksqlite-7.1.lib;vtkpng-7.1.lib;vtktiff-7.1.lib;vtkjpeg-7.1.lib;vtkexpat-7.1.lib;vtksys-7.1.lib;ws2_32.lib;vtkfreetype-7.1.lib;opengl32.lib;vfw32.lib;vtkexoIIc-7.1.lib;vtkNetCDF-7.1.lib;vtklibxml2-7.1.lib;vtkzlib-7.1.lib;vtkalglib-7.1.lib;$(CudaToolkitLibDir)\cudart_static.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64\d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(VTK7_BUILD_ROOT)\lib\Debug;$(QT5_ROOT)\msvc2015_64\lib;$(FREEGLUT3_BUILD_ROOT)\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <CudaCompile>
+      <Include>
+      </Include>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_EXPORTING;QT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(VTK7_ROOT)\Common\Core;$(VTK7_ROOT)\Common\DataModel;$(VTK7_ROOT)\Common\ExecutionModel;$(VTK7_ROOT)\Common\Math;$(VTK7_ROOT)\Common\Misc;$(VTK7_ROOT)\Common\Transforms;$(VTK7_ROOT)\Filters\Core;$(VTK7_ROOT)\Filters\Extraction;$(VTK7_ROOT)\Filters\General;$(VTK7_ROOT)\Filters\Sources;$(VTK7_ROOT)\GUISupport\Qt;$(VTK7_ROOT)\Imaging\Core;$(VTK7_ROOT)\Imaging\General;$(VTK7_ROOT)\Imaging\Sources;$(VTK7_ROOT)\Imaging\Statistics;$(VTK7_ROOT)\Infovis\Core;$(VTK7_ROOT)\Interaction\Image;$(VTK7_ROOT)\Interaction\Style;$(VTK7_ROOT)\Interaction\Widgets;$(VTK7_ROOT)\IO\Core;$(VTK7_ROOT)\IO\Image;$(VTK7_ROOT)\IO\Legacy;$(VTK7_ROOT)\Rendering\Core;$(VTK7_ROOT)\Rendering\Annotation;$(VTK7_ROOT)\Rendering\Volume;$(VTK7_ROOT)\Testing\Rendering;$(VTK7_ROOT)\Utilities\KWIML;$(VTK7_ROOT)\Views\Core;$(VTK7_ROOT)\Views\Infovis;$(VTK7_BUILD_ROOT)\Common\Core;$(VTK7_BUILD_ROOT)\Common\DataModel;$(VTK7_BUILD_ROOT)\Common\Misc;$(VTK7_BUILD_ROOT)\Common\ExecutionModel;$(VTK7_BUILD_ROOT)\Filters\Core;$(VTK7_BUILD_ROOT)\Filters\Extraction;$(VTK7_BUILD_ROOT)\Filters\General;$(VTK7_BUILD_ROOT)\Filters\Sources;$(VTK7_BUILD_ROOT)\GUISupport\Qt\;$(VTK7_BUILD_ROOT)\Imaging\Core;$(VTK7_BUILD_ROOT)\Imaging\General;$(VTK7_BUILD_ROOT)\Imaging\Sources;$(VTK7_BUILD_ROOT)\Imaging\Statistics;$(VTK7_BUILD_ROOT)\Infovis\Core;$(VTK7_BUILD_ROOT)\Interaction\Image;$(VTK7_BUILD_ROOT)\Interaction\Style;$(VTK7_BUILD_ROOT)\Interaction\Widgets;$(VTK7_BUILD_ROOT)\IO\Core;$(VTK7_BUILD_ROOT)\IO\Image;$(VTK7_BUILD_ROOT)\IO\Legacy;$(VTK7_BUILD_ROOT)\Rendering\Annotation;$(VTK7_BUILD_ROOT)\Rendering\Context2D;$(VTK7_BUILD_ROOT)\Rendering\Core;$(VTK7_BUILD_ROOT)\Rendering\OpenGL2;$(VTK7_BUILD_ROOT)\Rendering\Volume;$(VTK7_BUILD_ROOT)\Testing\Rendering;$(VTK7_BUILD_ROOT)\Utilities\KWIML;$(VTK7_BUILD_ROOT)\Views\Core;$(VTK7_BUILD_ROOT)\Views\Infovis;$(QT5_ROOT)\msvc2015_64\include;$(QT5_ROOT)\msvc2015_64\include\QtGui;$(QT5_ROOT)\msvc2015_64\include\QtXml;$(QT5_ROOT)\msvc2015_64\include\QtNetwork;$(QT5_ROOT)\msvc2015_64\include\QtCore;$(QT5_ROOT)\Src\qtbase\include\QtWidgets;$(NVCUDASAMPLES8_0_ROOT)\common\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(VTK7_BUILD_ROOT)\lib\Release;$(QT5_ROOT)\msvc2015_64\lib;$(FREEGLUT3_BUILD_ROOT)\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>QVTKWidgetPlugin.lib;Qt5Gui.lib;Qt5Xml.lib;Qt5Network.lib;Qt5Core.lib;Qt5Sql.lib;Qt5Widgets.lib;vtkRenderingOpenGL2-7.1.lib;vtkCommonMisc-7.1.lib;vtkCommonDataModel-7.1.lib;vtkCommonExecutionModel-7.1.lib;vtkImagingStatistics-7.1.lib;vtkGUISupportQt-7.1.lib;vtkRenderingCore-7.1.lib;vtkIOCore-7.1.lib;vtkIOImage-7.1.lib;vtkCommonCore-7.1.lib;vtkViewsCore-7.1.lib;vtkChartsCore-7.1.lib;vtkInfovisCore-7.1.lib;vtkFiltersHybrid-7.1.lib;vtkverdict-7.1.lib;vtkImagingCore-7.1.lib;vtkImagingGeneral-7.1.lib;vtkInteractionImage-7.1.lib;vtkInteractionStyle-7.1.lib;wbemuuid.lib;vtkFiltersCore-7.1.lib;vtkDICOMParser-7.1.lib;vtkNetCDF_cxx-7.1.lib;vtkmetaio-7.1.lib;comctl32.lib;wsock32.lib;vtksqlite-7.1.lib;vtkpng-7.1.lib;vtktiff-7.1.lib;vtkjpeg-7.1.lib;vtkexpat-7.1.lib;vtksys-7.1.lib;ws2_32.lib;vtkfreetype-7.1.lib;opengl32.lib;vfw32.lib;vtkexoIIc-7.1.lib;vtkNetCDF-7.1.lib;vtklibxml2-7.1.lib;vtkzlib-7.1.lib;vtkalglib-7.1.lib;$(CudaToolkitLibDir)\cudart_static.lib;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64\d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\AboutDialog.cpp" />
+    <ClCompile Include="..\..\Source\Aperture.cpp" />
+    <ClCompile Include="..\..\Source\ApertureWidget.cpp" />
+    <ClCompile Include="..\..\Source\Appearance.cpp" />
+    <ClCompile Include="..\..\Source\AppearanceDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\AppearanceSettingsWidget.cpp" />
+    <ClCompile Include="..\..\Source\Background.cpp" />
+    <ClCompile Include="..\..\Source\BackgroundItem.cpp" />
+    <ClCompile Include="..\..\Source\BackgroundWidget.cpp" />
+    <ClCompile Include="..\..\Source\Camera.cpp" />
+    <ClCompile Include="..\..\Source\CameraDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\CameraWidget.cpp" />
+    <ClCompile Include="..\..\Source\Controls.cpp" />
+    <ClCompile Include="..\..\Source\CudaUtilities.cpp" />
+    <ClCompile Include="..\..\Source\EdgeItem.cpp" />
+    <ClCompile Include="..\..\Source\Film.cpp" />
+    <ClCompile Include="..\..\Source\FilmWidget.cpp" />
+    <ClCompile Include="..\..\Source\Flags.cpp" />
+    <ClCompile Include="..\..\Source\Focus.cpp" />
+    <ClCompile Include="..\..\Source\FocusWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_AboutDialog.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Aperture.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_ApertureWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_AppearanceDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_AppearanceSettingsWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Background.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_BackgroundWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Camera.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_CameraDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_CameraWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Controls.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Film.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_FilmWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Focus.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_FocusWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_HardwareWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Histogram.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_HttpGet.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Light.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Lighting.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LightingDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LightingWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LightsWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LightWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LoadSettingsDialog.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LogDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Logger.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_LogWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_MainWindow.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Node.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_NodePropertiesWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_NodeSelectionWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Preset.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_PresetsWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Projection.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_ProjectionWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_RenderThread.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_SettingsDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_StartupDialog.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_StatisticsDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_StatisticsWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_Status.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_TransferFunction.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_TransferFunctionView.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_TransferFunctionWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_UpdateWidget.cpp" />
+    <ClCompile Include="..\..\Source\generated\moc_VtkWidget.cpp" />
+    <ClCompile Include="..\..\Source\Geometry.cpp" />
+    <ClCompile Include="..\..\Source\GradientRamp.cpp" />
+    <ClCompile Include="..\..\Source\GridItem.cpp" />
+    <ClCompile Include="..\..\Source\HardwareWidget.cpp" />
+    <ClCompile Include="..\..\Source\Histogram.cpp" />
+    <ClCompile Include="..\..\Source\HistogramItem.cpp" />
+    <ClCompile Include="..\..\Source\HttpGet.cpp" />
+    <ClCompile Include="..\..\Source\InteractorStyleRealisticCamera.cpp" />
+    <ClCompile Include="..\..\Source\Light.cpp" />
+    <ClCompile Include="..\..\Source\Lighting.cpp" />
+    <ClCompile Include="..\..\Source\LightingDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\LightingWidget.cpp" />
+    <ClCompile Include="..\..\Source\LightInline.cpp" />
+    <ClCompile Include="..\..\Source\LightsWidget.cpp" />
+    <ClCompile Include="..\..\Source\LightWidget.cpp" />
+    <ClCompile Include="..\..\Source\LoadSettingsDialog.cpp" />
+    <ClCompile Include="..\..\Source\LogDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\Logger.cpp" />
+    <ClCompile Include="..\..\Source\LogWidget.cpp" />
+    <ClCompile Include="..\..\Source\Main.cpp" />
+    <ClCompile Include="..\..\Source\MainWindow.cpp" />
+    <ClCompile Include="..\..\Source\Node.cpp" />
+    <ClCompile Include="..\..\Source\NodeItem.cpp" />
+    <ClCompile Include="..\..\Source\NodePropertiesWidget.cpp" />
+    <ClCompile Include="..\..\Source\NodeSelectionWidget.cpp" />
+    <ClCompile Include="..\..\Source\Preset.cpp" />
+    <ClCompile Include="..\..\Source\PresetsWidget.cpp" />
+    <ClCompile Include="..\..\Source\Projection.cpp" />
+    <ClCompile Include="..\..\Source\ProjectionWidget.cpp" />
+    <ClCompile Include="..\..\Source\RenderThread.cpp" />
+    <ClCompile Include="..\..\Source\Scene.cpp" />
+    <ClCompile Include="..\..\Source\SettingsDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\Spectrum.cpp" />
+    <ClCompile Include="..\..\Source\Stable.cpp" />
+    <ClCompile Include="..\..\Source\StartupDialog.cpp" />
+    <ClCompile Include="..\..\Source\StatisticsDockWidget.cpp" />
+    <ClCompile Include="..\..\Source\StatisticsWidget.cpp" />
+    <ClCompile Include="..\..\Source\Status.cpp" />
+    <ClCompile Include="..\..\Source\Timing.cpp" />
+    <ClCompile Include="..\..\Source\TransferFunction.cpp" />
+    <ClCompile Include="..\..\Source\TransferFunctionItem.cpp" />
+    <ClCompile Include="..\..\Source\TransferFunctionView.cpp" />
+    <ClCompile Include="..\..\Source\TransferFunctionWidget.cpp" />
+    <ClCompile Include="..\..\Source\UpdateWidget.cpp" />
+    <ClCompile Include="..\..\Source\Utilities.cpp" />
+    <ClCompile Include="..\..\Source\Variance.cpp" />
+    <ClCompile Include="..\..\Source\VolumeMapper.cpp" />
+    <ClCompile Include="..\..\Source\VtkWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\Source\Core.cu">
+      <FileType>Document</FileType>
+    </CudaCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 8.0.targets" />
+  </ImportGroup>
+</Project>

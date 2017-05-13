@@ -5,13 +5,16 @@
 #
 #	- Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 #	- Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-#	- Neither the name of the TU Delft nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+#	- Neither the name of the <ORGANIZATION> nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 #	
 #	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 cmake_minimum_required(VERSION 2.8)
 
 PROJECT(ExposureRender)
+
+### Set Build Type ###
+SET(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 FIND_PACKAGE(CUDA)
 
@@ -26,125 +29,664 @@ FIND_PACKAGE(CUDA)
 # SET(CUDA_NVCC_FLAGS "-gencode=arch=compute_13,code=compute_13;${CUDA_NVCC_FLAGS}")
 SET(CUDA_NVCC_FLAGS "-gencode=arch=compute_20,code=sm_20;${CUDA_NVCC_FLAGS}")
 SET(CUDA_NVCC_FLAGS "-gencode=arch=compute_20,code=compute_20;${CUDA_NVCC_FLAGS}")
-#SET(CUDA_NVCC_FLAGS "-OPT:Olimit=99999;${CUDA_NVCC_FLAGS}")
 
-# Add CUDA includes
+IF(NOT VTK_BINARY_DIR)
+FIND_PACKAGE(VTK)
+IF(NOT VTK_DIR)
+  MESSAGE(FATAL_ERROR "Please set VTK_DIR.")
+ENDIF(NOT VTK_DIR)
+INCLUDE(${VTK_USE_FILE})
+ENDIF(NOT VTK_BINARY_DIR)
+
+MESSAGE(STATUS "vv" ${CMAKE_INSTALL_PREFIX})
+
+# use what QVTK built with
+SET(QT_MOC_EXECUTABLE ${VTK_QT_MOC_EXECUTABLE} CACHE FILEPATH "")
+SET(QT_UIC_EXECUTABLE ${VTK_QT_UIC_EXECUTABLE} CACHE FILEPATH "")
+SET(QT_QMAKE_EXECUTABLE ${VTK_QT_QMAKE_EXECUTABLE} CACHE FILEPATH "")
+
+SET(QT_USE_QTXML TRUE)
+SET(QT_USE_QTNETWORK TRUE)
+
+FIND_PACKAGE(Qt4 REQUIRED)
+
+# Enable the use of XML in Qt
+
+
+
+INCLUDE(${QT_USE_FILE})
+
+# Enable the export of symbols
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_EXPORTING")
+
+# Use the include path and library for Qt that is used by VTK.
 INCLUDE_DIRECTORIES(
+	${QT_INCLUDE_DIR}
 	${CMAKE_CURRENT_BINARY_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CUDA_SDK_ROOT_DIR}/common/inc
 	${CUDA_TOOLKIT_INCLUDE}
 )
 
-# Export symbols
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_EXPORTING")
+# Set your files and resources here  
+SET(ExposureRenderSources 
+	
+	ReadMe.txt
+	Copyright.txt
 
-# Make the "Core" source group
-SOURCE_GROUP("Core" FILES ${vtkErCoreSources})
+	# Main
+	MainWindow.cpp
+	Main.cpp 
+	LoadSettingsDialog.cpp
+	StartupDialog.cpp
+	AboutDialog.cpp
+	SettingsDockWidget.cpp
+	HardwareWidget.cpp
+	UpdateWidget.cpp
+	HttpGet.cpp
 
-# General
-SET(General
-	device.h
-	utilities.h
-	geometry.h
-	transport.h
-	raymarching.h
-	shader.h
-	sample.h
-	rng.h
-	montecarlo.h
-	ray.h
-	volumes.h
-	lights.h
-	objects.h
-	clippingobjects.h
-	textures.h
-	filter.h
-	log.h
-	defines.h
-	camera.h
-	procedural.h
-	shape.h
-	matrix.h
-	vector.h
-	buffer1d.h
-	buffer2d.h
-	buffer3d.h
-	boundingbox.h
-	transferfunction.h
-	rendersettings.h
-	timing.h
-	exception.h
-	enums.h
-	color.h
-	exposurerender.h
-	exposurerender.cpp
-	tracer.h
-	volume.h
-	light.h
-	scatterevent.h
-	intersection.h
-	object.h
-	clippingobject.h
-	texture.h
-	bitmap.h
-	buffer.h
-	framebuffer.h
-	pf.h
-	plf.h
-	pcf.h
-	singlescattering.h
+	# Lighting
+	LightWidget.cpp 
+	LightingDockWidget.cpp 
+	LightsWidget.cpp
+	LightingWidget.cpp
+	Lighting.cpp
+	Light.cpp
+	Background.cpp
+	BackgroundWidget.cpp
+
+	# Appearance
+	TransferFunction.cpp
+	TransferFunctionView.cpp
+	TransferFunctionWidget.cpp
+	NodePropertiesWidget.cpp
+	AppearanceDockWidget.cpp
+	NodeItem.cpp
+	EdgeItem.cpp
+	Histogram.cpp
+	Node.cpp
+	GradientRamp.cpp
+	HistogramItem.cpp
+	BackgroundItem.cpp
+	TransferFunctionItem.cpp
+	NodeSelectionWidget.cpp
+	GridItem.cpp
+	AppearanceSettingsWidget.cpp
+	Appearance.cpp
+
+	# Camera
+	Camera.cpp
+	CameraDockWidget.cpp
+	FilmWidget.cpp
+	ApertureWidget.cpp
+	ProjectionWidget.cpp
+	FocusWidget.cpp
+	CameraWidget.cpp
+	Film.cpp
+	Aperture.cpp
+	Projection.cpp
+	Focus.cpp
+
+	# Presets
+	PresetsWidget.cpp
+	Preset.cpp
+
+	# Statistics
+	StatisticsDockWidget.cpp
+	StatisticsWidget.cpp
+	
+	# Core
+	Stable.cpp
+	Flags.cpp
+	Geometry.cpp
+	Spectrum.cpp
+	InteractorStyleRealisticCamera.cpp
+	RenderThread.cpp
+	VtkWidget.cpp
+	Scene.cpp
+	Controls.cpp
+	Utilities.cpp
+	CudaUtilities.cpp
+	Status.cpp
+	Timing.cpp
+	Variance.cpp
+	VolumeMapper.cpp
+
+	# Logging
+	Logger.cpp
+	LogWidget.cpp
+	LogDockWidget.cpp
 )
 
-# General group
-SOURCE_GROUP("General" FILES ${General})
+SET(ExposureRenderHeaders 
+	
+	# Main
+	MainWindow.h
+	LoadSettingsDialog.h
+	StartupDialog.h
+	AboutDialog.h
+	SettingsDockWidget.h
+	HardwareWidget.h
+	UpdateWidget.h
+	HttpGet.h
 
-# Shapes
-SET(Shapes
-	shapes.h
-	plane.h
-	box.h
-	disk.h
-	ring.h
-	sphere.h
-	cylinder.h
+	# Lighting
+	LightWidget.h
+	LightingDockWidget.h
+	LightsWidget.h
+	LightingWidget.h
+	Lighting.h
+	Light.h
+	Background.h
+	BackgroundWidget.h
+
+	# Appearance
+	TransferFunction.h
+	TransferFunctionView.h
+	TransferFunctionWidget.h
+	NodePropertiesWidget.h
+	AppearanceDockWidget.h
+	NodeItem.h
+	EdgeItem.h
+	Histogram.h
+	Node.h
+	GradientRamp.h
+	HistogramItem.h
+	BackgroundItem.h
+	TransferFunctionItem.h
+	NodeSelectionWidget.h
+	GridItem.h
+	AppearanceSettingsWidget.h
+	Appearance.h
+
+	# Camera
+	Camera.h
+	CameraWidget.h
+	CameraDockWidget.h
+	FilmWidget.h
+	ApertureWidget.h
+	ProjectionWidget.h
+	FocusWidget.h
+	Film.h
+	Aperture.h
+	Projection.h
+	Focus.h
+
+	# Presets
+	PresetsWidget.h
+	Preset.h
+
+	# Statistics
+	StatisticsDockWidget.h
+	StatisticsWidget.h
+	
+	# Core
+	Stable.h
+	Defines.h
+	Dll.h
+	Enumerations.h
+	Flags.h
+	Geometry.h
+	Spectrum.h
+	InteractorStyleRealisticCamera.h
+	RenderThread.h
+	VtkWidget.h
+	Scene.h
+	Controls.h
+	LogWidget.h
+	Utilities.h
+	CudaUtilities.h
+	Status.h
+	Timing.h
+	Variance.h
+	VolumeMapper.h
+
+	# Logging
+	Logger.h
+	LogWidget.h
+	LogDockWidget.h
 )
 
-# Shapes group
-SOURCE_GROUP("Shapes" FILES ${Shapes})
+SET(ExposureRenderMocHeaders 
+	# Main
 
-# API
-SET(Bindable
-	erbindable.h
-	ertracer.h
-	ervolume.h
-	erlight.h
-	erobject.h
-	erclippingobject.h
-	ertexture.h
-	erbitmap.h
+	MainWindow.h
+	SettingsDockWidget.h
+	LoadSettingsDialog.h
+	StartupDialog.h
+	AboutDialog.h
+	HardwareWidget.h
+	UpdateWidget.h
+	HttpGet.h
+
+	# Lighting
+	LightWidget.h
+	LightingDockWidget.h
+	LightsWidget.h
+	LightingWidget.h
+	Lighting.h
+	Light.h
+	Background.h
+	BackgroundWidget.h
+
+	# Appearance
+	TransferFunction.h
+	TransferFunctionView.h
+	TransferFunctionWidget.h
+	NodePropertiesWidget.h
+	AppearanceDockWidget.h
+	Histogram.h
+	Node.h
+	NodeSelectionWidget.h
+	AppearanceSettingsWidget.h
+
+	# Camera
+	Camera.h
+	CameraWidget.h
+	CameraDockWidget.h
+	FilmWidget.h
+	ApertureWidget.h
+	ProjectionWidget.h
+	FocusWidget.h
+	Film.h
+	Aperture.h
+	Projection.h
+	Focus.h
+
+	# Presets
+	PresetsWidget.h
+	Preset.h
+
+	# Statistics
+	StatisticsDockWidget.h
+	StatisticsWidget.h
+	
+	# Core
+	RenderThread.h
+	VtkWidget.h
+	Controls.h
+	Status.h
+
+	# Logging
+	Logger.h
+	LogWidget.h
+	LogDockWidget.h
 )
 
-# API group
-SOURCE_GROUP("Bindable" FILES ${Bindable})
+# Resources
+SET(ExposureRenderResources Icons/Icons.qrc)
 
-# Filters
-SET(Cuda
-	singlescattering.cuh
-	estimate.cuh
-	gradientmagnitude.cuh
-	filterrunningestimate.cuh
-	filterframeestimate.cuh
-	tonemap.cuh
-	autofocus.cuh
-	list.cuh
-	wrapper.cuh
-	macros.cuh
-	core.cu
+# PATCHED QT4_WRAP_CPP for use with StdAfx
+# Original source: Qt4Macros.cmake
+MACRO (PCH_QT4_WRAP_CPP outfiles )
+  # get include dirs
+  QT4_GET_MOC_FLAGS(moc_flags)
+  QT4_EXTRACT_OPTIONS(moc_files moc_options ${ARGN})
+ 
+  FOREACH (it ${moc_files})
+    
+	GET_FILENAME_COMPONENT(it ${it} ABSOLUTE)
+    QT4_MAKE_OUTPUT_FILE(${it} moc_ cxx outfile)
+    set (moc_flags_append "-fStable.h" "-f${it}") # StdAfx hack.
+ 
+	# message (STATUS "Moc Flags append ${moc_flags_append}")
+	#QT4_CREATE_MOC_COMMAND(${it} ${outfile} "${moc_flags};${moc_flags_append}" "${moc_options}")
+	
+	IF(CMAKE_VERSION VERSION_GREATER 2.8.11.20130607)
+	   QT4_CREATE_MOC_COMMAND(${it} ${outfile} "${moc_flags};${moc_flags_append}" "${moc_options}" "")
+	ELSE(CMAKE_VERSION VERSION_GREATER 2.8.11.20130607)
+	   QT4_CREATE_MOC_COMMAND(${it} ${outfile} "${moc_flags};${moc_flags_append}" "${moc_options}")
+	ENDIF(CMAKE_VERSION VERSION_GREATER 2.8.11.20130607)
+	
+	SET(${outfiles} ${${outfiles}} ${outfile})
+
+  ENDFOREACH(it)
+ENDMACRO (PCH_QT4_WRAP_CPP)
+
+# QT4_CREATE_MOC_COMMAND(Icons/Icons.qrc qrc_Icons.cxx "${moc_flags};${moc_flags_append}" "${moc_options}")
+
+# The rest should just work (sure...)
+PCH_QT4_WRAP_CPP(MOCSrcs ${ExposureRenderMocHeaders} )
+# QT4_ADD_RESOURCES(ResourceSrcs ${ExposureRenderResources})
+
+SOURCE_GROUP("Resources" FILES
+  ${ExposureRenderResources}
+  ${EXE_ICON}
 )
 
-# Filters group
-SOURCE_GROUP("Cuda" FILES ${Cuda})
+SOURCE_GROUP("Generated" FILES
+	${UISrcs}
+	${MOCSrcs}
+	${ResourceSrcs}
+	qrc_Icons.cxx
+	${RCS_SOURCES}
+)
 
-# Make the library
-CUDA_ADD_LIBRARY(ErCore ${General} ${Shapes} ${Bindable} ${Cuda} SHARED)
+# Main sources
+SET(MainSources
+
+	MainWindow.h
+	LoadSettingsDialog.h
+	StartupDialog.h
+	AboutDialog.h
+	SettingsDockWidget.h
+	HardwareWidget.h
+	HttpGet.h
+	UpdateWidget.h
+
+	MainWindow.cpp
+	Main.cpp
+	LoadSettingsDialog.cpp
+	StartupDialog.cpp
+	AboutDialog.cpp
+	SettingsDockWidget.cpp
+	HardwareWidget.cpp
+	HttpGet.cpp
+	UpdateWidget.cpp
+)
+
+# Make the main group
+SOURCE_GROUP("Main" FILES ${MainSources})
+
+# Appearance sources
+SET(AppearanceSources
+	AppearanceDockWidget.h
+	TransferFunction.h
+	TransferFunctionView.h
+	TransferFunctionWidget.h
+	NodePropertiesWidget.h
+	AppearanceDockWidget.h
+	NodeItem.h
+	EdgeItem.h
+	Histogram.h
+	Node.h
+	GradientRamp.h
+	HistogramItem.h
+	BackgroundItem.h
+	TransferFunctionItem.h
+	NodeSelectionWidget.h
+	GridItem.h
+	AppearanceSettingsWidget.h
+	Appearance.h
+	AppearanceDockWidget.cpp
+	TransferFunction.cpp
+	TransferFunctionView.cpp
+	TransferFunctionWidget.cpp
+	NodePropertiesWidget.cpp
+	AppearanceDockWidget.cpp
+	NodeItem.cpp
+	EdgeItem.cpp
+	Histogram.cpp
+	Node.cpp
+	GradientRamp.cpp
+	HistogramItem.cpp
+	BackgroundItem.cpp
+	TransferFunctionItem.cpp
+	NodeSelectionWidget.cpp
+	GridItem.cpp
+	AppearanceSettingsWidget.cpp
+	Appearance.cpp
+)
+
+# Make the appearance group
+SOURCE_GROUP("Appearance" FILES ${AppearanceSources})
+
+# Lighting sources
+SET(LightingSources
+	LightWidget.h
+	LightingDockWidget.h
+	LightsWidget.h
+	LightingWidget.h
+	Lighting.h
+	Light.h
+	Background.h
+	BackgroundWidget.h
+	LightWidget.cpp 
+	LightingDockWidget.cpp 
+	LightsWidget.cpp
+	LightingWidget.cpp
+	Lighting.cpp
+	Light.cpp
+	Background.cpp
+	BackgroundWidget.cpp
+)
+
+# Make the lighting group
+SOURCE_GROUP("Lighting" FILES ${LightingSources})
+
+# Camera sources
+SET(CameraSources
+	Camera.h
+	CameraDockWidget.h
+	FilmWidget.h
+	ApertureWidget.h
+	ProjectionWidget.h
+	FocusWidget.h
+	CameraWidget.h
+	Film.h
+	Aperture.h
+	Projection.h
+	Focus.h
+	Camera.cpp
+	CameraDockWidget.cpp
+	FilmWidget.cpp
+	ApertureWidget.cpp
+	ProjectionWidget.cpp
+	FocusWidget.cpp
+	CameraWidget.cpp
+	Film.cpp
+	Aperture.cpp
+	Projection.cpp
+	Focus.cpp
+)
+
+# Make the camera group
+SOURCE_GROUP("Camera" FILES ${CameraSources})
+
+# Presets sources
+SET(PresetsSources
+	PresetsWidget.h
+	Preset.h
+	PresetsWidget.cpp
+	Preset.cpp
+)
+
+# Make the presets group
+SOURCE_GROUP("Presets" FILES ${PresetsSources})
+
+# Statistics sources
+SET(StatisticsSources
+	StatisticsDockWidget.h
+	StatisticsWidget.h
+	StatisticsDockWidget.cpp
+	StatisticsWidget.cpp
+)
+
+# Make the statistics group
+SOURCE_GROUP("Statistics" FILES ${StatisticsSources})
+	
+# Core sources
+SET(CoreSources
+	Stable.h
+	Defines.h
+	Dll.h
+	Enumerations.h
+	Flags.h
+	Geometry.h
+	Spectrum.h
+	InteractorStyleRealisticCamera.h
+	RenderThread.h
+	VtkWidget.h
+	Scene.h
+	Controls.h
+	Utilities.h
+	Status.h
+	Timing.h
+	Variance.h
+	VolumeMapper.h
+	Stable.cpp
+	Flags.cpp
+	Geometry.cpp
+	Spectrum.cpp
+	InteractorStyleRealisticCamera.cpp
+	RenderThread.cpp
+	VtkWidget.cpp
+	Scene.cpp
+	Controls.cpp
+	Utilities.cpp
+	Status.cpp
+	Timing.cpp
+	Variance.cpp
+	VolumeMapper.cpp
+)
+
+# Make the core group
+SOURCE_GROUP("Core" FILES ${CoreSources})
+
+# CUDA sources
+SET(CudaSources
+	SingleScattering.cuh
+	MultipleScattering.cuh
+	Blur.cuh
+	Utilities.cuh
+	Core.cuh
+	Estimate.cuh
+	Transport.cuh
+	RayMarching.cuh
+	Woodcock.cuh
+	Denoise.cuh
+	Variance.cuh
+	NearestIntersection.cuh
+	SpecularBloom.cuh
+	ToneMap.cuh
+	Buffer.cuh
+	View.cuh
+	Model.cuh
+	Shader.cuh
+	Sample.cuh
+	RNG.cuh
+	Camera.cuh
+	Lighting.cuh
+	MonteCarlo.cuh
+	Core.cu
+	CudaUtilities.h
+	CudaUtilities.cpp
+)
+
+# Make the CUDA group
+SOURCE_GROUP("Cuda" FILES ${CudaSources})
+
+# Logging sources
+SET(LoggingSources
+	Logger.h
+	LogWidget.h
+	LogDockWidget.h
+	Logger.cpp
+	LogWidget.cpp
+	LogDockWidget.cpp
+)
+
+# Make the logging group
+SOURCE_GROUP("Logging" FILES ${LoggingSources})
+
+ADD_DEFINITIONS(-DQT_GUI_LIBS -DQT_CORE_LIB -DQT_XML_LIB -DQT3_SUPPORT)
+
+IF(WIN32)
+	SET(GUI_TYPE WIN32)
+ENDIF(WIN32)
+
+# Create executable
+CUDA_ADD_EXECUTABLE(ExposureRender MACOSX_BUNDLE ${ExposureRenderSources} ${UISrcs} ${MOCSrcs} ${ResourceSrcs} ${MainSources} ${AppearanceSources} ${LightingSources} ${CameraSources} ${PresetsSources} ${CudaHeaders} ${CoreSources} ${CudaSources} ${LoggingSources})
+
+
+
+TARGET_LINK_LIBRARIES(ExposureRender
+  QVTK
+  ${QT_LIBRARIES}
+  vtkRendering
+  vtkGraphics
+  vtkIO
+  vtkCommon
+
+  vtkViews
+)
+
+### Precompiled headers ###
+if (MSVC)
+   set_target_properties(ExposureRender PROPERTIES COMPILE_FLAGS "/YuStable.h")
+   set_source_files_properties(Stable.cpp PROPERTIES COMPILE_FLAGS "/YcStable.h")
+  # set_source_files_properties(Stable.cpp PROPERTIES COMPILE_FLAGS "/YcUtilities.h")
+endif(MSVC)
+
+### VTK dependencies ###
+FILE(GLOB VtkDlls "${VTK_DIR}/bin/RelWithDebInfo/*.dll")
+INSTALL_FILES(/bin FILES ${VtkDlls})
+
+### CUDA dependencies ###
+SET(CudaDlls ${CUDA_TOOLKIT_ROOT_DIR}/bin/cudart32_40_17.dll)
+INSTALL_FILES(/bin FILES ${CudaDlls})
+
+### QT dependencies ###
+SET(QtDlls ${QT_BINARY_DIR}/QtCore4.dll ${QT_BINARY_DIR}/QtGui4.dll ${QT_BINARY_DIR}/QtXml4.dll ${QT_BINARY_DIR}/QtSql4.dll ${QT_BINARY_DIR}/QtNetwork4.dll)
+INSTALL_FILES(/bin FILES ${QtDlls})
+
+### Example .mhd and .raw files ###
+FILE(GLOB Examples "${CMAKE_CURRENT_SOURCE_DIR}/Examples/*.*")
+INSTALL_FILES(/bin/Examples FILES ${Examples})
+
+### Preset files ###
+FILE(GLOB Presets "${CMAKE_CURRENT_SOURCE_DIR}/Presets/*.xml")
+INSTALL_FILES(/bin FILES ${Presets})
+
+### Icon files ###
+FILE(GLOB Icons "${CMAKE_CURRENT_SOURCE_DIR}/Icons/*.png")
+INSTALL_FILES(/bin/Icons FILES ${Icons})
+
+### ReadMe and Copyright ###
+INSTALL_FILES(/bin FILES ${CMAKE_CURRENT_SOURCE_DIR}\\\\ReadMe.txt)
+INSTALL_FILES(/bin FILES ${CMAKE_CURRENT_SOURCE_DIR}\\\\Copyright.txt)
+
+#### Install Exposure Render ###
+INSTALL_TARGETS(/bin ExposureRender)
+
+# Requires re-distributables
+INCLUDE(InstallRequiredSystemLibraries)
+
+### Configure NSIS ###
+SET(CPACK_GENERATOR NSIS)
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Exposure Render")
+SET(CPACK_PACKAGE_VENDOR "TU Delft")
+SET(CPACK_RESOURCE_FILE_WELCOME ${CMAKE_CURRENT_SOURCE_DIR}/Welcome.txt)
+SET(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt)
+SET(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_SOURCE_DIR}/Copyright.txt)
+SET(CPACK_PACKAGE_DEFAULT_LOCATION /)
+SET(CPACK_PACKAGE_VERSION_MAJOR "1")
+SET(CPACK_PACKAGE_VERSION_MINOR "1")
+SET(CPACK_PACKAGE_VERSION_PATCH "0")
+
+# Menu links
+set(CPACK_NSIS_MENU_LINKS "http://graphics.tudelft.nl/" "TU Delft Graphics Website" "http://code.google.com/p/exposure-render/" "Exposure Render Website" "http://code.google.com/p/exposure-render/downloads" "Data sets" "http://code.google.com/p/exposure-render/wiki" "Wiki")
+
+# Icon in the add/remove control panel, this must be an .exe file 
+set(CPACK_NSIS_INSTALLED_ICON_NAME ${EXE_TARGET_NAME}.exe)
+
+# Install directory
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Exposure Render")
+
+# SET(SIDEBAR_IMAGE ${CMAKE_SOURCE_DIR}/bonsai.bmp}
+# SET(CPACK_NSIS_INSTALLER_MUI_ICON_CODE "!define MUI_WELCOMEFINISHPAGE_BITMAP \\\"${SIDEBAR_IMAGE}\\\")
+
+# SET(CPACK_PACKAGE_ICON "c:\\WindowsMovieMaker.bmp")
+SET(CPACK_NSIS_PACKAGE_NAME "Exposure Render")
+SET(CPACK_NSIS_DISPLAY_NAME "Exposure Render")
+SET(CPACK_NSIS_CONTACT "t.kroes@tudelft.nl")
+SET(CPACK_NSIS_HELP_LINK "http://graphics.tudelft.nl/")
+SET(CPACK_NSIS_URL_INFO_ABOUT "http://code.google.com/p/exposure-render/")
+SET(CPACK_NSIS_MUI_FINISHPAGE_RUN "ExposureRender")
+
+SET(CPACK_NSIS_EXECUTABLES_DIRECTORY "bin")
+
+# Shortcut in start menu
+SET(CPACK_PACKAGE_EXECUTABLES "ExposureRender;Exposure Render")
+
+INCLUDE(CPack)

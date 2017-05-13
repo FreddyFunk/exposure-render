@@ -1,0 +1,1 @@
+Move all datasets (*.mhd,*.raw) files in this folder from the Examples folder in the root folder.
