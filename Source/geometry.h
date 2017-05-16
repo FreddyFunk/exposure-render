@@ -17,7 +17,7 @@
 
 #include <algorithm>
 #include <math.h>
-#include <nvMath.h>
+//#include <nvMath.h>
 
 class CColorRgbHdr;
 class CColorRgbLdr;
