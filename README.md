@@ -4,13 +4,11 @@ This is a build of exposure-render using Visual Studio 2015 and VTK v 7.1.1 and 
 
 ## Download the required libraries
 
-First install CUDA v 8.0 toolkit from NVIDIA. Next download VTK v 7.1.1 from (http://www.vtk.org/files/release/7.1/VTK-7.1.1.zip), Qt 5.8.0 from (https://download.qt.io/official_releases/qt/5.8/5.8.0/) and freeglut v3.0.0 from (https://sourceforge.net/projects/freeglut/files/latest/download).
+First install CUDA v 8.0 toolkit from NVIDIA. Next download VTK v 7.1.1 from (http://www.vtk.org/files/release/7.1/VTK-7.1.1.zip) and Qt 5.8.0 from (https://download.qt.io/official_releases/qt/5.8/5.8.0/). 
 Ensure that you have extracted the files at a location on your harddisk. Use CMake to build VTK 7.1.1. Ensure that QT GUI build support is enabled in VTK by setting the appropriate flags in CMake.  Once the CMake project generation is complete, open the VisualStudio 2015 solution and build VTK 7.1.1 for both Debug and Release build.
 
 ## Setting up Environment Variables
 Inorder to ensure that the project compiles without errors, you have to setup 4 environment variables as follows:
-
-FREEGLUT3_BUILD_ROOT = {Path to freeglut build directory}
 
 QT5_ROOT = {Path to 5.8 sub-folder in Qt root directory}
 
@@ -18,9 +16,7 @@ VTK7_ROOT = {Path to root folder of VTK 7.1.1}
 
 VTK7_BUILD_ROOT = {Path to build folder of VTK 7.1.1}
 
-So assuming that my freeglut build folder is in E:/freeglut3/build_vs2015_x64, QT5 is installed in E:/Qt/Qt5.8.0_x64 , VTK build folder is E:\VTK-7.1.1\Build_VS2015_x64 and VTK root folder is E:\VTK-7.1.1, then the environment variables will be set as follows:
-
-FREEGLUT3_BUILD_ROOT = E:/freeglut-3.0.0/Build_VS2015_x64
+So assuming that my QT5 library is installed in E:/Qt/Qt5.8.0_x64 , VTK build folder is E:\VTK-7.1.1\Build_VS2015_x64 and VTK root folder is E:\VTK-7.1.1, then the environment variables will be set as follows:
 
 QT5_ROOT = E:/Qt/Qt5.8.0_x64/5.8
 
