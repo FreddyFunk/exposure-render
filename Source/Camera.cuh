@@ -18,7 +18,7 @@
 
 #include "MonteCarlo.cuh"
 #include "RNG.cuh"
-#include <nvmath.h>
+//#include <nvmath.h>
 
 #define DEF_FOCUS_TYPE					CenterScreen
 #define DEF_FOCUS_SENSOR_POS_CANVAS		Vec2f(0.0f)
