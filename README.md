@@ -8,7 +8,7 @@ First install CUDA v 8.0 toolkit from NVIDIA. Next download VTK v 7.1.1 from (ht
 Ensure that you have extracted the files at a location on your harddisk. Use CMake to build VTK 7.1.1. Ensure that QT GUI build support is enabled in VTK by setting the appropriate flags in CMake.  Once the CMake project generation is complete, open the VisualStudio 2015 solution and build VTK 7.1.1 for both Debug and Release build.
 
 ## Setting up Environment Variables
-Inorder to ensure that the project compiles without errors, you have to setup 4 environment variables as follows:
+Inorder to ensure that the project compiles without errors, you have to setup 3 environment variables as follows:
 
 QT5_ROOT = {Path to 5.8 sub-folder in Qt root directory}
 
